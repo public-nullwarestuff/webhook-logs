@@ -1,3 +1,10 @@
+local req
+if getgenv().syn.request then
+	req = getgenv().syn.request
+elseif getgenv().request then
+	req = getgenv().request
+end
+
 local function fetch(method, placeid)
 	if method == "name" then
 		return(game:GetService("MarketplaceService"):GetProductInfo(placeid).Name)
@@ -24,7 +31,7 @@ local function post(name, message)
 		user2 = name
 		img = game:GetService("Players"):GetUserThumbnailAsync(game:GetService("Players"):FindFirstChild(name).UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 	end
-	syn.request({
+	req({
 		Url = _G.WebHook,
 		Method = "POST",
 		Headers = {
